@@ -3,9 +3,9 @@ syntax = "proto3";
 package infer;
 
 // Java codegen options
-option java_multiple_files = true; //the Java package where files go (so imports look clean)
-option java_package = "com.ss.worker.proto"; //generate separate Java classes instead of one mega-class
-option java_outer_classname = "InferProto"; //a wrapper name if needed (less important when multiple files is true).
+option java_multiple_files = true;
+option java_package = "com.ss.worker.proto"; 
+option java_outer_classname = "InferProto";
 
 // One RPC: classify text
 service Inference {
