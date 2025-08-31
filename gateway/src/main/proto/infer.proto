@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package infer;
+
+// Java codegen options
+option java_multiple_files = true;
+option java_package = "com.ss.worker.proto"; 
+option java_outer_classname = "InferProto";
+
+// One RPC: classify text
+service Inference {
+  rpc Classify (ClassifyRequest) returns (ClassifyResponse);
+}
+
+message ClassifyRequest {
+  string model = 1;       // e.g. "sentiment"
+  string input_text = 2;  // user text, the thing we want to classify
+}
+
+message ClassifyResponse {
+  string label = 1;       // POSITIVE/NEGATIVE/NEUTRAL
+  double score = 2;       // 0..1 confidence
+  int64  latency_ms = 3;  // worker-side processing time
+  string worker_id = 4;   // which pod handled it (for debugging)
+}
