@@ -1,6 +1,5 @@
 package com.ss.gateway.api;
 
-import com.ss.gateway.db.LoggingService;
 import com.ss.worker.proto.ClassifyRequest;
 import com.ss.worker.proto.ClassifyResponse;
 import com.ss.worker.proto.InferenceGrpc;
@@ -9,6 +8,7 @@ import io.grpc.ManagedChannelBuilder;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+import com.ss.gateway.db.LoggingService;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
