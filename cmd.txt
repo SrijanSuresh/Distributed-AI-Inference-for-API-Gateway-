@@ -1,6 +1,7 @@
 ./mvnw -DskipTests generate-sources
 
 rm -rf target
+./mvnw clean package
 ./mvnw -Dmaven.test.skip=true clean package
 WORKER_ADDR=127.0.0.1:9090 ./mvnw -Dmaven.test.skip=true spring-boot:run
 
