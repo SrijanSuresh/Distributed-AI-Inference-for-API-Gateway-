@@ -243,12 +243,94 @@ inference_latency_seconds_max 1.7887968
 
 </details>
 
-**Screenshot:**
-
-![Prometheus metrics screenshot](PLACEHOLDER_FOR_SCREENSHOT)
-
-License
-
-MIT
-
----
+**Metric Full-View:**
+```
+$ curl -s http://localhost:8081/actuator/prometheus | grep -E "inference_|process_uptime"
+# HELP inference_cache_hits_total Cache hits
+# TYPE inference_cache_hits_total counter
+inference_cache_hits_total 2.0
+# HELP inference_cache_misses_total Cache misses
+# TYPE inference_cache_misses_total counter
+inference_cache_misses_total 1.0
+# HELP inference_latency_seconds End-to-end request latency
+# TYPE inference_latency_seconds histogram
+inference_latency_seconds_bucket{le="0.001"} 0
+inference_latency_seconds_bucket{le="0.001048576"} 0
+inference_latency_seconds_bucket{le="0.001398101"} 0
+inference_latency_seconds_bucket{le="0.001747626"} 0
+inference_latency_seconds_bucket{le="0.002097151"} 0
+inference_latency_seconds_bucket{le="0.002446676"} 0
+inference_latency_seconds_bucket{le="0.002796201"} 0
+inference_latency_seconds_bucket{le="0.003145726"} 0
+inference_latency_seconds_bucket{le="0.003495251"} 0
+inference_latency_seconds_bucket{le="0.003844776"} 0
+inference_latency_seconds_bucket{le="0.004194304"} 0
+inference_latency_seconds_bucket{le="0.005592405"} 0
+inference_latency_seconds_bucket{le="0.006990506"} 0
+inference_latency_seconds_bucket{le="0.008388607"} 1
+inference_latency_seconds_bucket{le="0.009786708"} 1
+inference_latency_seconds_bucket{le="0.011184809"} 1
+inference_latency_seconds_bucket{le="0.01258291"} 1
+inference_latency_seconds_bucket{le="0.013981011"} 2
+inference_latency_seconds_bucket{le="0.015379112"} 2
+inference_latency_seconds_bucket{le="0.016777216"} 2
+inference_latency_seconds_bucket{le="0.022369621"} 2
+inference_latency_seconds_bucket{le="0.027962026"} 2
+inference_latency_seconds_bucket{le="0.033554431"} 2
+inference_latency_seconds_bucket{le="0.039146836"} 2
+inference_latency_seconds_bucket{le="0.044739241"} 2
+inference_latency_seconds_bucket{le="0.050331646"} 2
+inference_latency_seconds_bucket{le="0.055924051"} 2
+inference_latency_seconds_bucket{le="0.061516456"} 2
+inference_latency_seconds_bucket{le="0.067108864"} 2
+inference_latency_seconds_bucket{le="0.089478485"} 2
+inference_latency_seconds_bucket{le="0.111848106"} 2
+inference_latency_seconds_bucket{le="0.134217727"} 2
+inference_latency_seconds_bucket{le="0.156587348"} 2
+inference_latency_seconds_bucket{le="0.178956969"} 2
+inference_latency_seconds_bucket{le="0.20132659"} 2
+inference_latency_seconds_bucket{le="0.223696211"} 2
+inference_latency_seconds_bucket{le="0.246065832"} 2
+inference_latency_seconds_bucket{le="0.268435456"} 2
+inference_latency_seconds_bucket{le="0.357913941"} 2
+inference_latency_seconds_bucket{le="0.447392426"} 2
+inference_latency_seconds_bucket{le="0.536870911"} 2
+inference_latency_seconds_bucket{le="0.626349396"} 2
+inference_latency_seconds_bucket{le="0.715827881"} 2
+inference_latency_seconds_bucket{le="0.805306366"} 2
+inference_latency_seconds_bucket{le="0.894784851"} 2
+inference_latency_seconds_bucket{le="0.984263336"} 2
+inference_latency_seconds_bucket{le="1.073741824"} 2
+inference_latency_seconds_bucket{le="1.431655765"} 2
+inference_latency_seconds_bucket{le="1.789569706"} 3
+inference_latency_seconds_bucket{le="2.147483647"} 3
+inference_latency_seconds_bucket{le="2.505397588"} 3
+inference_latency_seconds_bucket{le="2.863311529"} 3
+inference_latency_seconds_bucket{le="3.22122547"} 3
+inference_latency_seconds_bucket{le="3.579139411"} 3
+inference_latency_seconds_bucket{le="3.937053352"} 3
+inference_latency_seconds_bucket{le="4.294967296"} 3
+inference_latency_seconds_bucket{le="5.726623061"} 3
+inference_latency_seconds_bucket{le="7.158278826"} 3
+inference_latency_seconds_bucket{le="8.589934591"} 3
+inference_latency_seconds_bucket{le="10.021590356"} 3
+inference_latency_seconds_bucket{le="11.453246121"} 3
+inference_latency_seconds_bucket{le="12.884901886"} 3
+inference_latency_seconds_bucket{le="14.316557651"} 3
+inference_latency_seconds_bucket{le="15.748213416"} 3
+inference_latency_seconds_bucket{le="17.179869184"} 3
+inference_latency_seconds_bucket{le="22.906492245"} 3
+inference_latency_seconds_bucket{le="28.633115306"} 3
+inference_latency_seconds_bucket{le="30.0"} 3
+inference_latency_seconds_bucket{le="+Inf"} 3
+inference_latency_seconds_count 3
+inference_latency_seconds_sum 1.809854
+# HELP inference_latency_seconds_max End-to-end request latency
+# TYPE inference_latency_seconds_max gauge
+inference_latency_seconds_max 1.7887968
+# HELP inference_requests_total Total inference requests
+# TYPE inference_requests_total counter
+inference_requests_total 3.0
+# HELP process_uptime_seconds The uptime of the Java virtual machine
+# TYPE process_uptime_seconds gauge
+process_uptime_seconds 77.414
