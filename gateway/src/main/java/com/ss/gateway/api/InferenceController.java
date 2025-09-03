@@ -13,6 +13,12 @@ import com.ss.gateway.db.LoggingService;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
+import java.util.concurrent.TimeUnit;
+
+
 @RestController
 @RequestMapping("/api/v1")
 public class InferenceController {
@@ -23,10 +29,34 @@ public class InferenceController {
 
   private final StringRedisTemplate redis;
   private final LoggingService logger;
+  private final Counter requests;
+  private final Counter cacheHits;
+  private final Counter cacheMisses;
+  private final Timer latency;
 
-  public InferenceController(StringRedisTemplate redis, LoggingService logger) {
+  public InferenceController(StringRedisTemplate redis,
+                            LoggingService logger,
+                            MeterRegistry registry) {
     this.redis = redis;
     this.logger = logger;
+
+    this.requests = Counter.builder("inference_requests_total")
+        .description("Total inference requests")
+        .register(registry);
+
+    this.cacheHits = Counter.builder("inference_cache_hits_total")
+        .description("Cache hits")
+        .register(registry);
+
+    this.cacheMisses = Counter.builder("inference_cache_misses_total")
+        .description("Cache misses")
+        .register(registry);
+
+    this.latency = Timer.builder("inference_latency")
+        .description("End-to-end request latency")
+        .publishPercentiles(0.5, 0.9, 0.95, 0.99)
+        .publishPercentileHistogram()
+        .register(registry);
   }
 
   // HTTP request & response payloads
@@ -36,7 +66,8 @@ public class InferenceController {
   @PostMapping("/classify")
   public Resp classify(@RequestBody Req req) {
     long t0 = System.nanoTime();
-
+    long startNs = System.nanoTime();
+    requests.increment();
     // Cache key = "<model>::<md5(text)>"
     String textHash = DigestUtils.md5DigestAsHex(req.text().getBytes(StandardCharsets.UTF_8));
     String key = req.model() + "::" + textHash;
@@ -50,6 +81,9 @@ public class InferenceController {
       String workerId = parts[2];
       long ms = (System.nanoTime() - t0) / 1_000_000;
       logger.log(req.model(), textHash, label, score, ms, true, workerId);
+      long ns = System.nanoTime() - startNs;
+      latency.record(ns, TimeUnit.NANOSECONDS);
+      cacheHits.increment();
       return new Resp(label, score, ms, workerId, true);
     }
 
@@ -76,6 +110,9 @@ public class InferenceController {
 
       long ms = (System.nanoTime() - t0) / 1_000_000;
       logger.log(req.model(), textHash, r.getLabel(), r.getScore(), ms, false, r.getWorkerId());
+      long ns = System.nanoTime() - startNs;
+      latency.record(ns, TimeUnit.NANOSECONDS);
+      cacheMisses.increment();
       return new Resp(r.getLabel(), r.getScore(), ms, r.getWorkerId(), false);
 
     } finally {
