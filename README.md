@@ -334,10 +334,3 @@ inference_requests_total 3.0
 # HELP process_uptime_seconds The uptime of the Java virtual machine
 # TYPE process_uptime_seconds gauge
 process_uptime_seconds 77.414
-```
-
-License
-
-MIT
-
----
