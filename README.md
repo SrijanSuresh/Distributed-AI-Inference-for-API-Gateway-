@@ -223,6 +223,32 @@ Clean Java build if IDE is confused
 
 ./mvnw -DskipTests=true clean package
 
+
+### Metrics Snapshot (dev)
+
+- **Requests:** 3  
+- **Cache hits / misses:** 2 / 1 → **Hit ratio: 66.7%**  
+- **Latency (avg / max):** **603 ms** / **1,789 ms**  
+- Source: `GET /actuator/prometheus`
+
+<details>
+<summary>Raw Prometheus lines</summary>
+
+inference_requests_total 3.0
+inference_cache_hits_total 2.0
+inference_cache_misses_total 1.0
+inference_latency_seconds_count 3
+inference_latency_seconds_sum 1.809854
+inference_latency_seconds_max 1.7887968
+
+</details>
+
+**Screenshot:**
+
+![Prometheus metrics screenshot](PLACEHOLDER_FOR_SCREENSHOT)
+
 License
 
 MIT
+
+---
