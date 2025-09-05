@@ -1,5 +1,6 @@
 # Distributed AI Inference Gateway  
 _Spring Boot + gRPC + Redis + Postgres_
+<img width="1179" height="664" alt="image" src="https://github.com/user-attachments/assets/8f2c8c1a-cb50-4a35-b969-0a34da64b1c4" />
 
 A lightweight, production-style setup for serving AI inference through a single HTTP API:
 
